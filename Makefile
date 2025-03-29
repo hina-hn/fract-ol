@@ -6,7 +6,7 @@
 #    By: YourName <your.email@example.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/19 21:14:04 by YourName          #+#    #+#              #
-#    Updated: 2025/03/30 00:54:26 by YourName         ###   ########.fr        #
+#    Updated: 2025/03/30 07:27:16 by YourName         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ INC 	:= -I inc -I ibft/includes -I mlx
 MLXFLAG = -Llibft -Lmlx -lmlx -lft -Imlx -lXext -lX11 -lm -Ofast
 
 SRC = src/main.c \
-      src/init.c 
+      src/init.c \
+	  src/render.c \
+	  src/math_utils.c \
+	  src/events.c \
+	  src/string_utils.c
 OBJ		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 all: $(NAME)

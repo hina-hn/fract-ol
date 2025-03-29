@@ -6,7 +6,7 @@
 /*   By: YourName <your.email@example.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 01:08:23 by YourName          #+#    #+#             */
-/*   Updated: 2025/03/30 01:08:24 by YourName         ###   ########.fr       */
+/*   Updated: 2025/03/30 07:42:16 by YourName         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	main(int argc, char **argv)
 	t_fractol	fractol;
 
 	if ((argc == 2 && !ft_strncmp(argv[1], "mandelbrot", 10)) || (argc == 4
-			&& ft_strncmp(argv[1], "julia", 5)))
+			&& !ft_strncmp(argv[1], "julia", 5)))
 	{
 		fractol.name = argv[1];
+		fractol.julia_x = atodbl(argv[2]);
+		fractol.julia_y = atodbl(argv[3]);
 		fractol_init(&fractol);
 		fractol_render(&fractol);
 		mlx_loop(fractol.mlx_connection);
