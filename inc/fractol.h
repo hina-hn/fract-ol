@@ -6,7 +6,7 @@
 /*   By: YourName <your.email@example.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:30:48 by YourName          #+#    #+#             */
-/*   Updated: 2025/03/30 01:14:11 by YourName         ###   ########.fr       */
+/*   Updated: 2025/03/30 02:17:58 by YourName         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@
 
 # define WIDTH 800
 # define HEIGHT 800
+
+# define BLACK 0x000000
+# define WHITE 0xFFFFFF
+# define RED 0xFF0000
+# define GREEN 0x00FF00
+# define BLUE 0x0000FF
+# define PSYCEDELIC_PURPLE 0xDF00FF
 
 typedef struct s_complex
 {
@@ -47,7 +54,8 @@ typedef struct s_fractol
 	void *mlx_connection; // mlx_init()
 	void *mlx_window;     // mlx_new_window()
 	t_img	img;
-
+	double	escape_value;
+	int		iterations_definition;
 }			t_fractol;
 
 void		fractol_init(t_fractol *fractol);

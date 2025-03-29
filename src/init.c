@@ -6,7 +6,7 @@
 /*   By: YourName <your.email@example.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 00:02:25 by YourName          #+#    #+#             */
-/*   Updated: 2025/03/30 00:14:01 by YourName         ###   ########.fr       */
+/*   Updated: 2025/03/30 02:03:58 by YourName         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	malloc_error(void)
 	perror("problems with malloc");
 	exit(1);
 }
+
 void	fractol_init(t_fractol *fractol)
 {
 	fractol->mlx_connection = mlx_init();
@@ -40,4 +41,7 @@ void	fractol_init(t_fractol *fractol)
 	}
 	fractol->img.pixels_ptr = mlx_get_data_addr(fractol->img.img_ptr,
 			&fractol->img.bpp, &fractol->img.line_len, &fractol->img.endian);
+
+	// events_init(fractol);
+	data_init(fractol);
 }
