@@ -6,7 +6,7 @@
 /*   By: YourName <your.email@example.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 00:02:25 by YourName          #+#    #+#             */
-/*   Updated: 2025/03/30 07:33:53 by YourName         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:25:09 by YourName         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	data_init(t_fractol *fractol)
 	fractol->shift_y = 0.0;
 	fractol->zoom = 1.0;
 }
-// staticにする
+
 void	events_init(t_fractol *fractol)
 {
 	mlx_hook(fractol->mlx_window, KeyPress, KeyPressMask, key_handler, fractol);
@@ -34,7 +34,8 @@ void	events_init(t_fractol *fractol)
 		fractol);
 	mlx_hook(fractol->mlx_window, DestroyNotify, StructureNotifyMask,
 		close_handler, fractol);
-		mlx_hook(fractol->mlx_window,MotionNotify, PointerMotionMask,julia_track,fractol);
+	mlx_hook(fractol->mlx_window, MotionNotify, PointerMotionMask, julia_track,
+		fractol);
 }
 
 void	fractol_init(t_fractol *fractol)
@@ -60,6 +61,6 @@ void	fractol_init(t_fractol *fractol)
 	}
 	fractol->img.pixels_ptr = mlx_get_data_addr(fractol->img.img_ptr,
 			&fractol->img.bpp, &fractol->img.line_len, &fractol->img.endian);
-	events_init(fractol);
 	data_init(fractol);
+	events_init(fractol);
 }

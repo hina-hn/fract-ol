@@ -6,7 +6,7 @@
 /*   By: YourName <your.email@example.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 01:08:23 by YourName          #+#    #+#             */
-/*   Updated: 2025/03/30 07:42:16 by YourName         ###   ########.fr       */
+/*   Updated: 2025/04/06 13:06:47 by YourName         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ int	main(int argc, char **argv)
 			&& !ft_strncmp(argv[1], "julia", 5)))
 	{
 		fractol.name = argv[1];
-		fractol.julia_x = atodbl(argv[2]);
-		fractol.julia_y = atodbl(argv[3]);
+		if (argc == 4)
+		{
+			fractol.julia_x = atodbl(argv[2]);
+			fractol.julia_y = atodbl(argv[3]);
+		}
 		fractol_init(&fractol);
 		fractol_render(&fractol);
 		mlx_loop(fractol.mlx_connection);
@@ -33,16 +36,3 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
-
-// #include "mlx/mlx.h"
-
-// int	main(void)
-// {
-// 	void	*mlx;
-// 	void	*win;
-
-// 	mlx = mlx_init();                                 // MiniLibX の初期化,接続
-// 	win = mlx_new_window(mlx, 800, 600, "My Window"); // 800x600 のウィンドウを作成
-// 	mlx_loop(mlx); // イベントループ
-// 	return (0);
-// }

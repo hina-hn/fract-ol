@@ -6,7 +6,7 @@
 /*   By: YourName <your.email@example.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 01:07:55 by YourName          #+#    #+#             */
-/*   Updated: 2025/03/30 07:29:45 by YourName         ###   ########.fr       */
+/*   Updated: 2025/04/06 13:20:50 by YourName         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	mandel_vs_julia(t_complex *z, t_complex *c, t_fractol *fractol)
 	if (!ft_strncmp(fractol->name, "julia", 5))
 	{
 		c->x = fractol->julia_x;
-		c->y = fractol->julia_x;
+		c->y = fractol->julia_y;
 	}
 	else
 	{
@@ -34,29 +34,38 @@ static void	mandel_vs_julia(t_complex *z, t_complex *c, t_fractol *fractol)
 	}
 }
 
-void	handle_pixel(int x, int y, t_fractol *fractol)
+int	compute_color(t_complex z, t_complex c, t_fractol *fractol)
 {
-	t_complex	z;
-	t_complex	c;
-	int			i;
-	int			color;
+	int		i;
+	t_range	iter_range;
 
+	iter_range = (t_range){0, fractol->iterations_definition};
 	i = 0;
-	z.x = (map(x, -2, +2, 0, WIDTH) * fractol->zoom) + fractol->shift_x;
-	z.y = (map(y, +2, -2, 0, HEIGHT) * fractol->zoom) + fractol->shift_y;
-	mandel_vs_julia(&z, &c, fractol);
 	while (i < fractol->iterations_definition)
 	{
 		z = sum_complex(square_complex(z), c);
 		if ((z.x * z.x) + (z.y * z.y) > fractol->escape_value)
-		{
-			color = map(i, BLACK, WHITE, 0, fractol->iterations_definition);
-			my_pixel_put(x, y, &fractol->img, color);
-			return ;
-		}
+			return (map(i, BLACK, WHITE, iter_range));
 		++i;
 	}
-	my_pixel_put(x, y, &fractol->img, PSYCEDELIC_PURPLE);
+	return (PSYCEDELIC_PURPLE);
+}
+
+void	handle_pixel(int x, int y, t_fractol *fractol)
+{
+	t_complex	z;
+	t_complex	c;
+	t_range		x_range;
+	t_range		y_range;
+	int			color;
+
+	x_range = (t_range){0, WIDTH};
+	y_range = (t_range){0, HEIGHT};
+	z.x = (map(x, -2, +2, x_range) * fractol->zoom) + fractol->shift_x;
+	z.y = (map(y, +2, -2, y_range) * fractol->zoom) + fractol->shift_y;
+	mandel_vs_julia(&z, &c, fractol);
+	color = compute_color(z, c, fractol);
+	my_pixel_put(x, y, &fractol->img, color);
 }
 
 void	fractol_render(t_fractol *fractol)

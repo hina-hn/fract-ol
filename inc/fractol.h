@@ -6,7 +6,7 @@
 /*   By: YourName <your.email@example.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 20:30:48 by YourName          #+#    #+#             */
-/*   Updated: 2025/03/30 07:38:35 by YourName         ###   ########.fr       */
+/*   Updated: 2025/04/06 13:39:27 by YourName         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define ERROR_MESSAGE "plese enter \n\t\"./fractol mandelbrot\" or \n\t\"./fractol julia <value1> <value2>\" "
+# define ERROR_MESSAGE "Usage: ./fractol mandelbrot | julia <val1> <val2>\n"
 
 # define WIDTH 800
 # define HEIGHT 800
@@ -34,6 +34,12 @@
 # define GREEN 0x00FF00
 # define BLUE 0x0000FF
 # define PSYCEDELIC_PURPLE 0xDF00FF
+
+typedef struct s_range
+{
+	double		old_min;
+	double		old_max;
+}				t_range;
 
 typedef struct s_complex
 {
@@ -53,8 +59,8 @@ typedef struct s_my_img
 typedef struct s_fractol
 {
 	char		*name;
-	void *mlx_connection; // mlx_init()
-	void *mlx_window;     // mlx_new_window()
+	void		*mlx_connection;
+	void		*mlx_window;
 	t_my_img	img;
 	double		escape_value;
 	int			iterations_definition;
@@ -69,9 +75,10 @@ void			fractol_init(t_fractol *fractol);
 void			malloc_error(void);
 
 double			map(double unscaled_num, double new_min, double new_max,
-					double old_min, double old_max);
+					t_range old);
 t_complex		sum_complex(t_complex z1, t_complex z2);
 t_complex		square_complex(t_complex z);
+
 void			fractol_render(t_fractol *fractol);
 void			data_init(t_fractol *fractol);
 void			events_init(t_fractol *fractol);
