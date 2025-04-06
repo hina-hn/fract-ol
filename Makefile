@@ -8,7 +8,6 @@ CC = cc
 CFLAG = -Wall -Wextra -Werror
 
 INC 	:= -I inc -I ibft/includes -I mlx
-# MLXFLAG = -Imlx -lmlx -framework OpenGL -framework AppKit
 MLXFLAG = -Llibft -Lmlx -lmlx -lft -Imlx -lXext -lX11 -lm -Ofast
 
 SRC = src/main.c \
